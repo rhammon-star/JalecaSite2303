@@ -1,26 +1,105 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 176 14% 14%;
+    --ink: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 176 14% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 176 14% 14%;
+
+    --primary: 172 47% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 39 39% 62%;
+    --secondary-foreground: 176 14% 14%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --muted: 36 28% 95%;
+    --muted-foreground: 176 10% 38%;
+
+    --accent: 172 47% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --filter-surface: 0 0% 100%;
+    --filter-border: 39 37% 85%;
+    --filter-hover: 42 42% 84%;
+    --filter-active: 42 42% 87%;
+    --filter-active-border: 39 39% 62%;
+    --warm-surface: 41 35% 85%;
+    --dark-surface: 240 4% 12%;
+
+    --border: 38 29% 85%;
+    --input: 38 29% 85%;
+    --ring: 172 47% 53%;
+
+    --radius: 0.75rem;
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    overflow-wrap: break-word;
+  }
 }
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .filter-chip {
+    @apply border bg-[hsl(var(--filter-surface))] text-foreground transition-all duration-200 active:scale-95;
+    border-color: hsl(var(--filter-border));
+  }
+  .filter-chip:hover {
+    background-color: hsl(var(--filter-hover));
+    border-color: hsl(var(--filter-active-border));
+    color: hsl(var(--foreground));
+  }
+  .filter-chip--active {
+    background-color: hsl(var(--filter-active));
+    border-color: hsl(var(--filter-active-border));
+    color: hsl(var(--foreground));
+  }
+
+  .font-display { font-family: var(--font-display); }
+  .font-body    { font-family: var(--font-body); }
+}
+
+/* Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-up  { animation: fade-up  0.7s var(--ease-out-expo) both; }
+.animate-fade-in  { animation: fade-in  0.6s ease-out both; }
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
