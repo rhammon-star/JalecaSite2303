@@ -25,6 +25,98 @@ export const GET_PRODUCTS = `
             sourceUrl
             altText
           }
+          galleryImages {
+            nodes {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        ... on VariableProduct {
+          price
+          regularPrice
+          salePrice
+          image {
+            sourceUrl
+            altText
+          }
+          galleryImages {
+            nodes {
+              sourceUrl
+              altText
+            }
+          }
+          variations {
+            nodes {
+              id
+              name
+              stockStatus
+              price
+              regularPrice
+              salePrice
+              attributes {
+                nodes {
+                  name
+                  value
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const SEARCH_PRODUCTS = `
+  query SearchProducts($search: String!, $first: Int) {
+    products(first: $first, where: { search: $search }) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ... on SimpleProduct {
+          price
+          regularPrice
+          image {
+            sourceUrl
+            altText
+          }
+        }
+        ... on VariableProduct {
+          price
+          regularPrice
+          image {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GET_RELATED_PRODUCTS = `
+  query GetRelatedProducts($categorySlug: String!, $first: Int, $excludeId: ID) {
+    products(
+      first: $first
+      where: { category: $categorySlug }
+    ) {
+      nodes {
+        id
+        databaseId
+        name
+        slug
+        ... on SimpleProduct {
+          price
+          regularPrice
+          salePrice
+          stockStatus
+          image {
+            sourceUrl
+            altText
+          }
         }
         ... on VariableProduct {
           price
@@ -39,6 +131,9 @@ export const GET_PRODUCTS = `
               id
               name
               stockStatus
+              price
+              regularPrice
+              salePrice
               attributes {
                 nodes {
                   name
@@ -61,11 +156,20 @@ export const GET_PRODUCT_BY_SLUG = `
       name
       slug
       description
+      shortDescription
+      productCategories {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
       ... on SimpleProduct {
         price
         regularPrice
         salePrice
         stockStatus
+        sku
         image {
           sourceUrl
           altText
@@ -81,6 +185,7 @@ export const GET_PRODUCT_BY_SLUG = `
         price
         regularPrice
         salePrice
+        sku
         image {
           sourceUrl
           altText
@@ -103,11 +208,17 @@ export const GET_PRODUCT_BY_SLUG = `
         variations {
           nodes {
             id
+            databaseId
             name
             stockStatus
             price
             regularPrice
             salePrice
+            sku
+            image {
+              sourceUrl
+              altText
+            }
             attributes {
               nodes {
                 name

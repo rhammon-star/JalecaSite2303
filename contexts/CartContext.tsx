@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { trackAddToCart } from '@/components/Analytics'
 
 export type CartItem = {
   id: string
@@ -70,6 +71,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return [...prev, { ...newItem, quantity: 1 }]
     })
     setIsOpen(true)
+    // Analytics
+    trackAddToCart({ id: newItem.id, name: newItem.name, price: newItem.price, quantity: 1 })
   }, [])
 
   const removeItem = useCallback((id: string, size?: string, color?: string) => {

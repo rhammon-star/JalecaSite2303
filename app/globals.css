@@ -103,3 +103,93 @@
 .animation-delay-300 { animation-delay: 300ms; }
 .animation-delay-400 { animation-delay: 400ms; }
 .animation-delay-500 { animation-delay: 500ms; }
+
+/* ── Dados Técnicos ─────────────────────────────────────────── */
+.technical-content {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: hsl(var(--muted-foreground));
+}
+
+.technical-content strong,
+.technical-content b {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  letter-spacing: 0.04em;
+}
+
+.technical-content p {
+  margin-bottom: 1rem;
+}
+
+.technical-content p:last-child {
+  margin-bottom: 0;
+}
+
+.technical-content h1,
+.technical-content h2,
+.technical-content h3,
+.technical-content h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.technical-content h2 { font-size: 1.35rem; }
+.technical-content h3 { font-size: 1.15rem; }
+.technical-content h4 { font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+.technical-content ul,
+.technical-content ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.technical-content li {
+  margin-bottom: 0.35rem;
+  position: relative;
+}
+
+.technical-content ul li::marker {
+  color: hsl(var(--secondary));
+}
+
+/* Divider lines between blocks */
+.technical-content hr {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin: 1.5rem 0;
+}
+
+/* Inline code / highlight */
+.technical-content code {
+  font-size: 0.875em;
+  background: hsl(var(--muted));
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+
+/* Decorative separator between paragraphs */
+.tech-separator {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.25rem 0;
+}
+.tech-separator span:not(.tech-dot) {
+  flex: 1;
+  height: 1px;
+  background: hsl(var(--border));
+}
+.tech-dot {
+  font-size: 0.6rem;
+  color: hsl(var(--secondary));
+  line-height: 1;
+  letter-spacing: 0;
+}

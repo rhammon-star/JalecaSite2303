@@ -21,10 +21,17 @@ export const metadata = {
 export default async function ProdutosPage({
   searchParams,
 }: {
-  searchParams: Promise<{ cat?: string }>
+  searchParams: Promise<{ cat?: string; sale?: string; novidades?: string }>
 }) {
-  const { cat } = await searchParams
+  const { cat, sale, novidades } = await searchParams
   const products = await getAllProducts()
 
-  return <ProductsClient products={products} initialCat={cat || 'Todos'} />
+  return (
+    <ProductsClient
+      products={products}
+      initialCat={cat || 'Todos'}
+      initialSale={sale === 'true'}
+      initialNovidades={novidades === 'true'}
+    />
+  )
 }

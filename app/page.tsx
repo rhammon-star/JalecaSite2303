@@ -19,42 +19,144 @@ async function getFeaturedProducts(): Promise<WooProduct[]> {
 export default async function Home() {
   const products = await getFeaturedProducts();
 
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Jaleca',
+    url: 'https://jaleca.com.br',
+    logo: 'https://jaleca.com.br/logo.svg',
+    description: 'Jalecos e uniformes profissionais para profissionais da saúde.',
+    sameAs: [
+      'https://www.instagram.com/jaleca.com.br',
+    ],
+  };
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Jaleca',
+    url: 'https://jaleca.com.br',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://jaleca.com.br/produtos?busca={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c'),
+      }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c'),
+      }}
+    />
     <main className="bg-background">
-      {/* Hero */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-background">
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-16">
-          <div className="order-2 md:order-1 animate-fade-up">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-4">JALECA</p>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-balance mb-6">
-              Elegância clínica em uma presença impecável
+      {/* Hero — editorial luxury split */}
+      <section className="relative w-full overflow-hidden bg-[#faf9f7]" style={{ minHeight: '92vh' }}>
+        <div className="flex flex-col md:flex-row h-full" style={{ minHeight: '92vh' }}>
+
+          {/* LEFT — editorial text panel */}
+          <div className="relative z-10 flex flex-col justify-center w-full md:w-[35%] px-8 md:pl-16 lg:pl-20 md:pr-4 py-20 md:py-0">
+            <p className="text-[10px] font-semibold tracking-[0.4em] uppercase text-[#b8a98a] mb-4">
+              Nova Coleção 2026
+            </p>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-[2.8rem] font-semibold leading-[1.1] text-[#1a1a1a] mb-5 animate-fade-up">
+              Elegância clínica em cada detalhe
             </h1>
-            <p className="text-muted-foreground text-pretty max-w-md mb-8 leading-relaxed">
-              Jalecos com linguagem editorial, caimento refinado e uma paleta suave que traduz cuidado, confiança e sofisticação.
+            <p className="text-[#777] text-sm leading-relaxed mb-8">
+              Jalecos com caimento refinado e paleta suave para quem cuida com cuidado.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" className="rounded-xl px-7 py-3.5 text-sm font-semibold tracking-wide uppercase transition-colors duration-200 hover:bg-primary/90 active:scale-[0.97]">
-                <Link href="/produtos?novidades=true">
-                  VER NOVIDADES
-                  <ArrowRight size={16} />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-xl border-primary text-primary px-7 py-3.5 text-sm font-semibold tracking-wide uppercase transition-colors duration-200 hover:bg-primary/5 active:scale-[0.97]">
-                <Link href="/produtos">
-                  EXPLORAR COLEÇÃO
-                </Link>
-              </Button>
+              <Link
+                href="/produtos?novidades=true"
+                className="inline-flex items-center gap-2 bg-[#c4a97d] text-white px-6 py-3 text-[11px] font-semibold tracking-widest uppercase transition-all duration-300 hover:bg-[#a8895f] hover:tracking-[0.2em] active:scale-[0.97]"
+              >
+                Ver Novidades
+                <ArrowRight size={13} />
+              </Link>
+              <Link
+                href="/produtos"
+                className="inline-flex items-center gap-2 border border-[#c4a97d] text-[#c4a97d] px-6 py-3 text-[11px] font-semibold tracking-widest uppercase transition-all duration-300 hover:bg-[#c4a97d] hover:text-white active:scale-[0.97]"
+              >
+                Explorar Coleção
+              </Link>
             </div>
           </div>
-          <div className="order-1 md:order-2 animate-fade-up animation-delay-200">
-            <div className="relative aspect-[3/4] max-h-[70vh] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/hero-jaleca.jpg"
-                alt="Profissional usando jaleco premium Jaleca"
-                className="w-full h-full object-cover"
-              />
-            </div>
+
+          {/* RIGHT — photo centered with controlled zoom */}
+          <div className="relative w-full md:w-[65%] overflow-hidden bg-[#e8e4de]" style={{ minHeight: '60vw' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-v6.jpg"
+              alt="Profissional usando jaleco premium Jaleca"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center 8%' }}
+              fetchPriority="high"
+            />
+            {/* Left fade to blend panels */}
+            <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#faf9f7] to-transparent z-10" />
+          </div>
+
+        </div>
+      </section>
+
+      {/* Category editorial banners */}
+      <section className="py-8 md:py-12 bg-background">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'Jalecos',
+                subtitle: 'Coleção 2026',
+                href: '/produtos?cat=Jalecos',
+                bg: 'bg-[#f0ede8]',
+                accent: 'text-[#5a4a3a]',
+              },
+              {
+                title: 'Scrubs',
+                subtitle: 'Conforto & Estilo',
+                href: '/produtos?cat=Scrubs',
+                bg: 'bg-[#e8edf0]',
+                accent: 'text-[#3a4a5a]',
+              },
+              {
+                title: 'Novidades',
+                subtitle: 'Recém chegadas',
+                href: '/produtos?novidades=true',
+                bg: 'bg-[#edf0e8]',
+                accent: 'text-[#3a5a3a]',
+              },
+            ].map(cat => (
+              <Link
+                key={cat.title}
+                href={cat.href}
+                className={`group relative overflow-hidden ${cat.bg} aspect-[4/3] md:aspect-[3/4] flex flex-col justify-end p-6 md:p-8`}
+              >
+                <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+                  <p className={`text-[10px] font-semibold tracking-[0.3em] uppercase ${cat.accent} mb-1 opacity-70`}>
+                    {cat.subtitle}
+                  </p>
+                  <h3 className={`font-display text-2xl md:text-3xl font-semibold ${cat.accent} mb-3`}>
+                    {cat.title}
+                  </h3>
+                  <span className={`inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase ${cat.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                    Explorar →
+                  </span>
+                </div>
+                {/* Overlay shine */}
+                <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -135,6 +237,55 @@ export default async function Home() {
         </section>
       </ScrollReveal>
 
+      {/* Testimonials */}
+      <ScrollReveal>
+        <section className="py-20 md:py-28 bg-card">
+          <div className="container">
+            <div className="text-center mb-12">
+              <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-3">Depoimentos</p>
+              <h2 className="font-display text-3xl md:text-4xl font-semibold">O que dizem nossos clientes</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  name: 'Dra. Ana Carolina',
+                  role: 'Médica — São Paulo, SP',
+                  text: 'O caimento é impecável e o tecido é extremamente confortável para longas jornadas. Meu jaleco Jaleca é o mais elogiado da clínica!',
+                  stars: 5,
+                },
+                {
+                  name: 'Enf. Patricia Mendes',
+                  role: 'Enfermeira — Belo Horizonte, MG',
+                  text: 'Finalmente um uniforme que une elegância e praticidade. As cores são lindas e o material não amassa durante o plantão.',
+                  stars: 5,
+                },
+                {
+                  name: 'Dr. Felipe Souza',
+                  role: 'Cirurgião — Rio de Janeiro, RJ',
+                  text: 'Comprei o scrub e fiquei impressionado com a qualidade. Entrega rápida, produto exatamente como descrito. Já estou na terceira compra!',
+                  stars: 5,
+                },
+              ].map((t, i) => (
+                <ScrollReveal key={t.name} delay={i * 100}>
+                  <div className="bg-background border border-border p-7 flex flex-col gap-4">
+                    <div className="flex gap-0.5">
+                      {Array.from({ length: t.stars }).map((_, j) => (
+                        <span key={j} className="text-amber-400 text-sm">★</span>
+                      ))}
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed italic">"{t.text}"</p>
+                    <div className="mt-auto pt-4 border-t border-border">
+                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                      <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
       {/* CTA */}
       <ScrollReveal>
         <section className="border-b border-[#E5E5E5] bg-background py-20 text-ink md:py-28">
@@ -156,5 +307,6 @@ export default async function Home() {
         </section>
       </ScrollReveal>
     </main>
+    </>
   );
 }

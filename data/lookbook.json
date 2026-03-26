@@ -1,0 +1,38 @@
+[
+  {
+    "id": "look-clinica-elegante",
+    "title": "Clínica Elegante",
+    "image": "/product-1.jpg",
+    "description": "Sofisticação no ambiente clínico com jaleco slim e detalhes refinados.",
+    "products": [
+      { "name": "Jaleco Clássico Slim", "slug": "jaleco-classico-slim", "price": "R$ 289,00" }
+    ]
+  },
+  {
+    "id": "look-dia-a-dia",
+    "title": "Dia a Dia com Estilo",
+    "image": "/product-2.jpg",
+    "description": "Conforto e praticidade para as longas jornadas no plantão.",
+    "products": [
+      { "name": "Scrub Essencial Verde", "slug": "scrub-essencial-verde", "price": "R$ 199,00" }
+    ]
+  },
+  {
+    "id": "look-premium",
+    "title": "Linha Premium",
+    "image": "/product-3.jpg",
+    "description": "Exclusividade e acabamento premium para profissionais exigentes.",
+    "products": [
+      { "name": "Scrub Premium Cinza", "slug": "scrub-premium-cinza", "price": "R$ 219,00" }
+    ]
+  },
+  {
+    "id": "look-performance",
+    "title": "Performance Total",
+    "image": "/product-4.jpg",
+    "description": "Alta performance e tecnologia em cada detalhe do uniforme.",
+    "products": [
+      { "name": "Scrub Performance Azul", "slug": "scrub-performance-azul", "price": "R$ 239,00" }
+    ]
+  }
+]
